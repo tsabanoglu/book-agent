@@ -1,0 +1,18 @@
+[project]
+name = "book-agent"
+version = "0.1.0"
+description = "Personal reading companion — track quotes, references, concepts, and notes"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "click",
+    "rich",
+    "requests",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+book-agent = "book_agent.main:cli"
