@@ -36,7 +36,25 @@ uv run book-agent book add "Valis" \
   --started 2026-01-10
 ```
 
-### 2. List your books
+### 2. Fill in missing details
+
+If you added a book in a hurry and left fields blank, use `book edit` to update them afterwards. Only the fields you pass are changed; everything else stays as-is.
+
+```bash
+# quick add — just the essentials
+uv run book-agent book add "Valis" --author "Philip K. Dick"
+
+# fill in the rest when you have time
+uv run book-agent book edit "Valis" \
+  --format physical \
+  --language english \
+  --genre "science fiction" \
+  --form novel \
+  --pages 227 \
+  --started 2026-01-10
+```
+
+### 3. List your books
 
 ```bash
 uv run book-agent book list
@@ -44,7 +62,7 @@ uv run book-agent book list
 
 ![Book list](assets/booklist1.png)
 
-### 3. Add entries while reading
+### 4. Add entries while reading
 
 **Save a quote:**
 ```bash
@@ -75,7 +93,7 @@ uv run book-agent add note "Valis" \
   --page 168
 ```
 
-### 4. List entries for a book
+### 5. List entries for a book
 
 ```bash
 # all entries
@@ -85,7 +103,7 @@ uv run book-agent list "Valis"
 uv run book-agent list "Valis" --type reference
 ```
 
-### 5. Search across all books
+### 6. Search across all books
 
 ```bash
 uv run book-agent search "Wordsworth"
@@ -93,7 +111,7 @@ uv run book-agent search "Wordsworth"
 
 ![Reference entry](assets/reference1.png)
 
-### 6. Expand a reference with Ollama
+### 7. Expand a reference with Ollama
 
 ```bash
 # expand entry #5 on the spot
@@ -108,7 +126,7 @@ uv run book-agent add reference "Valis" \
 
 Ollama will explain the reference on its own terms — no speculation about the book.
 
-### 7. Add an entry from a photo
+### 8. Add an entry from a photo
 
 Point your phone at a page, then:
 
@@ -118,7 +136,7 @@ uv run book-agent add quote "Valis" --from-image ~/Desktop/page1.jpg
 
 The vision model extracts the text; you confirm, edit, or abort before it's saved.
 
-### 8. Auto-tag references and concepts
+### 9. Auto-tag references and concepts
 
 ```bash
 # tag entries that are missing tags
@@ -128,7 +146,7 @@ uv run book-agent retag
 uv run book-agent retag --all
 ```
 
-### 9. Reading plan
+### 10. Reading plan
 
 ```bash
 # add books to your monthly plan
@@ -150,11 +168,20 @@ uv run book-agent plan stats
 uv run book-agent plan stats --all
 ```
 
-### 10. Mark a book as finished
+### 11. Change a book's read status
 
 ```bash
+# mark as finished (sets finished_at to today on first use; safe to re-run)
 uv run book-agent book status "Valis" finished
+
+# mark as currently reading
+uv run book-agent book status "Valis" reading
+
+# pause a book
+uv run book-agent book status "Valis" paused
 ```
+
+Valid statuses: `reading`, `finished`, `paused`. The `finished_at` date is only set once — re-running `finished` will not overwrite the original date.
 
 ## Direct database access
 
